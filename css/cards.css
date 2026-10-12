@@ -1,0 +1,14 @@
+.card {
+  position: relative; width: var(--cw, 64px); height: calc(var(--cw, 64px) * 1.4); border-radius: calc(var(--cw, 64px) * .09);
+  background: #fbf8f0; color: #1d1d1f; box-shadow: 0 1px 0 rgba(0,0,0,.25), 0 4px 10px rgba(0,0,0,.25);
+  font-family: 'EB Garamond', Georgia, serif; flex: none; user-select: none; -webkit-user-select: none;
+}
+.card.red { color: #b3261e; }
+.card .r { position: absolute; top: 4%; left: 9%; font-size: calc(var(--cw, 64px) * .34); font-weight: 600; line-height: 1; }
+.card .s { position: absolute; top: 32%; left: 10%; font-size: calc(var(--cw, 64px) * .24); line-height: 1; }
+.card .big { position: absolute; right: 9%; bottom: 5%; font-size: calc(var(--cw, 64px) * .5); line-height: 1; opacity: .9; }
+.card.back {
+  background: #7a2a26;
+  background-image: repeating-linear-gradient(45deg, rgba(255,255,255,.07) 0 3px, transparent 3px 8px), repeating-linear-gradient(-45deg, rgba(255,255,255,.07) 0 3px, transparent 3px 8px);
+  border: calc(var(--cw, 64px) * .06) solid #fbf8f0;
+}

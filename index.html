@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Bluff</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/cards.css">
+<link rel="stylesheet" href="css/screen.css">
+</head>
+<body>
+<main id="screen">
+  <aside id="left">
+    <div class="panel join">
+      <div class="label">Join on your phone</div>
+      <div id="joinUrl" class="url">…</div>
+      <div class="label">Room code</div>
+      <div id="code" class="code">····</div>
+      <div id="qr" class="qr"></div>
+    </div>
+    <div class="panel how">
+      <div class="label">How it goes</div>
+      <p>Put down one to four cards face down and say they're the rank it's your turn to claim — Aces, then Twos, and on up to Kings.</p>
+      <p>Anyone can call <b>Bluff</b>. Caught lying? You take the pile. Told the truth? The caller takes it.</p>
+      <p>First to run out of cards wins.</p>
+    </div>
+    <ol id="log" class="log"></ol>
+  </aside>
+
+  <section id="table-wrap">
+    <div id="now" class="now"><span class="what"></span><span class="who"></span><button id="skip" class="skip" hidden>Skip turn</button></div>
+    <div id="table">
+      <div id="felt"></div>
+      <div id="seats"></div>
+      <div id="center"></div>
+    </div>
+    <div id="keys" class="keys"></div>
+  </section>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/5.10.1/mqtt.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script type="module" src="js/screen.js"></script>
+</body>
+</html>
