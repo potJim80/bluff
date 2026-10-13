@@ -1,0 +1,44 @@
+/* Durak's own bits, loaded after the common css. Used by both the screen and the phone. */
+
+/* ---- the table: attack cards with the beating card on top, a little down and to the right ---- */
+.pairs { display: flex; flex-wrap: wrap; justify-content: center; align-content: center; gap: 14px 18px; }
+.pair { --ox: calc(var(--cw, 64px) * .32); --oy: calc(var(--cw, 64px) * .4);
+  position: relative; flex: none; width: calc(var(--cw, 64px) + var(--ox)); height: calc(var(--cw, 64px) * 1.4 + var(--oy)); }
+.pair .card { position: absolute; left: 0; top: 0; }
+.pair .card.cover { left: var(--ox); top: var(--oy); transform: rotate(9deg); }
+
+/* ---- the screen ---- */
+#center.phase-attack, #center.phase-taking { width: 72%; }
+.board { --cw: 74px; display: flex; align-items: center; justify-content: center; gap: 32px; width: 100%; }
+.tablecol { flex: 0 1 auto; display: flex; flex-direction: column; align-items: center; gap: 12px; min-width: 300px; }
+.tablecol .pairs { max-width: 460px; }
+.phase-attack .pair.open .card.att { box-shadow: 0 0 0 2px var(--brass), 0 4px 10px rgba(0,0,0,.3); }
+.stock { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: none; width: 136px; }
+.stock .stack { position: relative; width: 132px; height: 104px; }
+.stock .stack .card { --cw: 70px; position: absolute; left: 60px; top: 0; }
+.stock .stack .card.back { box-shadow: 0 1px 3px rgba(0,0,0,.4); }
+/* The trump card lies sideways under the stock, sticking out to the left so its corner shows. */
+.stock .stack .card.trumpcard { left: 8px; top: 6px; transform: rotate(-90deg); }
+.stock .pilecount { text-align: center; line-height: 1.5; }
+.trumps { font-family: var(--serif); font-size: 26px; color: var(--ink); margin-top: 2px; }
+.trumps span { font-size: 32px; vertical-align: -2px; }
+.bigsuit { font-size: 84px; line-height: 1; color: var(--ink); }
+.trumps .red, .trumpline .red, .bigsuit.red { color: var(--lie); }
+
+.seat .role { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--brass); margin-bottom: 1px; }
+.seat .role.defends { color: var(--ink); }
+.seat .role.takes { color: var(--lie); }
+.seat.def { border-color: rgba(233,228,216,.6); box-shadow: 0 0 0 1px rgba(233,228,216,.4); }
+
+/* ---- the phone ---- */
+#view .role-line { font-size: 25px; line-height: 1.2; margin-top: 4px; }
+#view .pairs.mini { --cw: 46px; gap: 8px 10px; justify-content: flex-start; padding: 4px 0 2px; }
+#view .pair.target { cursor: pointer; }
+#view .pair.target .card.att { box-shadow: 0 0 0 3px var(--brass), 0 0 18px rgba(217,180,92,.5); }
+#view .hand .card.off { opacity: .45; }
+#view .trumpline { margin-top: -4px; }
+#view .trumpline b { font-family: var(--serif); font-size: 18px; color: var(--ink); font-weight: 600; }
+#view .trumpline b.red { color: var(--lie); }
+#view .others i { font-style: normal; font-size: 12px; color: var(--dim); margin-left: 6px; }
+button.takebtn { color: var(--lie); border-color: var(--lie); background: var(--bg); }
+#view h1.lie { color: var(--lie); }

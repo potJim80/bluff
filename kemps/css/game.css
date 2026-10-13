@@ -1,0 +1,76 @@
+/* Kemps: team colours, the spread, the K-E-M-P-S letters. Loaded after the common css on both
+   the screen and the phones. The four team colours are muted, so they sit with the brass and felt. */
+:root { --t1: #86a4cf; --t2: #cf9672; --t3: #ad97cf; --t4: #72b4ae; }
+
+/* Team badges: a small pill in the team's colour. */
+.team-badge { display: inline-block; font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;
+  padding: 2px 8px 1px; border-radius: 999px; border: 1px solid currentColor; line-height: 1.4; white-space: nowrap; }
+.team-badge.t1 { color: var(--t1); background: color-mix(in srgb, var(--t1) 14%, transparent); }
+.team-badge.t2 { color: var(--t2); background: color-mix(in srgb, var(--t2) 14%, transparent); }
+.team-badge.t3 { color: var(--t3); background: color-mix(in srgb, var(--t3) 14%, transparent); }
+.team-badge.t4 { color: var(--t4); background: color-mix(in srgb, var(--t4) 14%, transparent); }
+
+/* K-E-M-P-S: lit letters in brass, the rest dim. */
+.letters { display: inline-flex; gap: .28em; font-family: var(--serif); font-weight: 600; }
+.letters i { font-style: normal; color: var(--dim); opacity: .45; }
+.letters i.lit { color: var(--brass); opacity: 1; }
+
+/* ---- the screen ---- */
+.how b.kemps { color: var(--brass); }
+.seat .team-badge { margin-bottom: 4px; }
+.seat.team { border-bottom-width: 3px; }
+.seat.team.t1 { border-bottom-color: var(--t1); } .seat.team.t2 { border-bottom-color: var(--t2); }
+.seat.team.t3 { border-bottom-color: var(--t3); } .seat.team.t4 { border-bottom-color: var(--t4); }
+.seat .tick { color: var(--true); }
+
+.spread { --cw: 100px; display: flex; gap: 16px; margin: 4px 0 6px; }
+.spread .card.dealt { animation: dealt .4s ease-out both; }
+.spread .card.swapped { animation: swapped .7s ease-out both; }
+@keyframes dealt { from { opacity: 0; translate: 0 -40px; } to { opacity: 1; translate: 0 0; } }
+@keyframes swapped { from { translate: 0 -10px; box-shadow: 0 0 0 3px var(--brass), 0 10px 20px rgba(0,0,0,.4); } to { translate: 0 0; } }
+.verdict { font-family: var(--serif); font-size: 30px; font-weight: 600; margin-top: 4px; }
+.verdict.true { color: var(--true); } .verdict.lie { color: var(--lie); }
+.over-letters .letters { font-size: 46px; gap: 10px; }
+
+.extra .team-row { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--line); }
+.extra .team-row:last-child { border-bottom: 0; padding-bottom: 0; }
+.extra .team-row .who { font-family: var(--serif); font-size: 17px; color: #d9d3c4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.extra .team-row .letters { font-size: 19px; gap: .2em; }
+.extra .team-row.won .who { color: var(--brass); }
+
+/* ---- the phone ---- */
+.teamline { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+.teamline .mate { display: flex; flex-direction: column; gap: 6px; align-items: flex-start; font-size: 15px; }
+.teamline .mate b { font-family: var(--serif); font-size: 21px; font-weight: 600; color: var(--ink); }
+.teamline .scores { display: flex; flex-direction: column; gap: 4px; align-items: flex-end; }
+.teamline .scores > div { display: flex; align-items: baseline; gap: 8px; }
+.teamline .scores .letters { font-size: 22px; }
+.teamline .scores .them .letters { font-size: 17px; }
+.teamline .who { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--dim); }
+
+.block { display: flex; flex-direction: column; gap: 8px; }
+.row { display: flex; justify-content: space-between; }
+.row.mine { --cw: calc((min(100vw, 520px) - 32px - 3 * 8px) / 4); }
+.row.spread { --cw: calc((min(100vw, 520px) - 32px - 3 * 8px) / 4 * .86); justify-content: center; gap: 10px; }
+.row .card { cursor: pointer; transition: transform .08s; }
+.row .card.sel { transform: translateY(-6px); box-shadow: 0 0 0 3px var(--brass), 0 8px 16px rgba(0,0,0,.4); }
+.block .timer { width: 100%; margin-top: 2px; }
+.signal { color: var(--brass); font-family: var(--serif); font-size: 19px; text-align: center; }
+button.done { margin-bottom: 10px; }
+button.done.is-done { opacity: .55; }
+.calls { display: grid; grid-template-columns: 3fr 2fr; gap: 10px; }
+.calls button.huge { padding: 22px 0; font-size: 36px; }
+button.kemps { background: var(--brass); color: #1a1a1a; box-shadow: 0 6px 0 #8c7233; }
+button.kemps:active { transform: translateY(4px); box-shadow: 0 2px 0 #8c7233; }
+.picker { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.picker .kicker, .picker #cancel { grid-column: 1 / -1; }
+.picker .kicker { text-align: center; padding-bottom: 2px; }
+.picker button.pick { background: var(--bg2); color: var(--ink); border: 1px solid var(--lie); display: flex; flex-direction: column; align-items: flex-start; gap: 4px;
+  font-family: var(--serif); font-size: 22px; line-height: 1.1; padding: 10px 14px 12px; text-align: left; overflow: hidden; }
+.picker button.pick .team-badge { font-size: 10px; }
+.picker #cancel { padding: 13px; }
+.others.teams li { align-items: center; }
+.others.teams li span { display: flex; align-items: center; gap: 10px; }
+.others.teams .letters { font-size: 19px; }
+.others li.me-team .names { color: var(--ink); font-weight: 600; }
+.lobby-teams { display: flex; flex-direction: column; gap: 8px; }

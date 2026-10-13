@@ -8,11 +8,16 @@
 // player who put them down takes the whole pile; if they were all true, the caller takes it.
 // First to get rid of every card, and survive the call on their last play, wins.
 
+import { dealerOf, mayDeal } from '../../common/js/table.js';
+
+export const INFO = { id: 'bluff', name: 'Bluff', min: 2, max: 10 };
+export const ACTIONS = ['start', 'play', 'pass', 'call'];      // the moves a phone may send
 export const RANKS = 'A23456789TJQK';
 export const SUITS = 'SHDC';
 export const RANK_NAMES = ['Ace', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King'];
 export const MAX_PLAYERS = 10;
 export const WINDOW_MS = 10000;        // how long the others have to call
+export const REVEAL_MS = 5000;         // how long the turned-over cards stay on screen
 export const rankOf = (card) => RANKS.indexOf(card[0]);
 export const plural = (r, n) => n === 1 ? RANK_NAMES[r] : RANK_NAMES[r] + (r === 5 ? 'es' : 's');
 const NUMBERS = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight'];
@@ -86,7 +91,7 @@ export function apply(s0, a) {
     }
     case 'start': {
       if (s.phase !== 'lobby' && s.phase !== 'over') return s0;
-      if (s.players[0]?.id !== a.id && !a.byScreen) return s0;
+      if (!mayDeal(s, a)) return s0;
       s.players = s.players.filter(p => p.connected);
       if (s.players.length < 2) return s0;
       s.decks = decksFor(s.players.length);
@@ -121,7 +126,7 @@ export function apply(s0, a) {
       const p = s.play;
       const truthful = p.cards.every(c => rankOf(c) === p.rank);
       const taker = truthful ? a.id : p.by;
-      s.reveal = { by: p.by, caller: a.id, cards: p.cards, rank: p.rank, truthful, taker, took: s.pile.length };
+      s.reveal = { by: p.by, caller: a.id, cards: p.cards, rank: p.rank, truthful, taker, took: s.pile.length, until: (a.at ?? 0) + REVEAL_MS };
       s.hands[taker] = sortHand([...s.hands[taker], ...s.pile]);
       s.pile = [];
       s.phase = 'reveal';
@@ -190,6 +195,24 @@ function dropPlayer(s, id, why, at) {
   if (s.phase === 'window') return closeIfAllPassed(s, at);
   return s;
 }
+
+// The host's clock: the calling window closes by itself; a reveal moves on after a few seconds.
+export function timer(s) {
+  if (s.phase === 'window') return { at: s.play.until, action: { type: 'close' } };
+  if (s.phase === 'reveal') return { at: s.reveal.until, action: { type: 'next' } };
+  return null;
+}
+
+// After the screen reloads: give an open window, or a reveal, its full time back.
+export function resume(s, now) {
+  if (s.phase === 'window') s.play.until = now + WINDOW_MS;
+  if (s.phase === 'reveal') s.reveal.until = now + REVEAL_MS;
+  return s;
+}
+
+// Each phone sees only its own hand.
+export const secrets = (s) => s.hands;
+export { dealerOf };
 
 // Everything except the cards in hands and in the pile. A reveal shows the called cards to all.
 export function publicView(s) {

@@ -47,3 +47,9 @@ button.call:active { transform: translateY(4px); box-shadow: 0 2px 0 #8f2f29; }
 .others b { font-weight: 500; color: var(--dim); }
 .pilenote { text-align: right; }
 .flash { position: fixed; left: 16px; right: 16px; bottom: calc(24px + env(safe-area-inset-bottom)); background: var(--bg2); border: 1px solid var(--line); padding: 12px 14px; border-radius: 10px; font-size: 14px; text-align: center; }
+.others li.away span { opacity: .55; }
+details.rules { border-top: 1px solid var(--line); padding-top: 10px; }
+details.rules summary { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); cursor: pointer; padding: 4px 0; }
+details.rules ol { margin: 10px 0 0; padding-left: 20px; font-family: var(--serif); font-size: 17px; line-height: 1.4; color: #d9d3c4; }
+details.rules li { margin-bottom: 6px; }
+details.rules b { color: var(--brass); font-weight: 600; }

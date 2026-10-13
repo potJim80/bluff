@@ -1,0 +1,121 @@
+/* Corner: the goods cards, the market on the screen, and the trading rows on the phone.
+   Loaded after the common css, by both the screen and the phone. */
+
+/* ---- goods cards: the same cream card as the playing cards, a colour band per good ---- */
+.g-wheat { --gc: #c9a14a; }
+.g-barley { --gc: #a5744a; }
+.g-coffee { --gc: #6a4632; }
+.g-corn { --gc: #d6c766; }
+.g-sugar { --gc: #a7b2ad; }
+.g-oats { --gc: #b8a27c; }
+.g-soybeans { --gc: #6d8a4f; }
+.g-oranges { --gc: #cc7a3e; }
+.g-bull { --gc: #4f8a5c; }
+.g-bear { --gc: #9a3f37; }
+
+.card.good { overflow: hidden; }
+.card.good .gname { position: absolute; top: 6%; left: 9%; font-size: calc(var(--cw, 64px) * .2); font-weight: 600; line-height: 1; white-space: nowrap; }
+.card.good .band { position: absolute; left: 0; right: 0; top: 34%; height: 32%; background: var(--gc); display: flex; align-items: center; justify-content: center;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.18), inset 0 -1px 0 rgba(0,0,0,.18); }
+.card.good .gval { position: absolute; right: 9%; bottom: 6%; font-size: calc(var(--cw, 64px) * .22); font-weight: 600; line-height: 1; color: #6b655a; }
+.card.good .mark { width: 0; height: 0; border-left: calc(var(--cw, 64px) * .13) solid transparent; border-right: calc(var(--cw, 64px) * .13) solid transparent; }
+.card.good .mark.up { border-bottom: calc(var(--cw, 64px) * .17) solid #fbf8f0; }
+.card.good .mark.down { border-top: calc(var(--cw, 64px) * .17) solid #fbf8f0; }
+.card.good.g-bear { background: #2a2b31; color: #e9e4d8; box-shadow: 0 0 0 1px rgba(255,255,255,.12), 0 4px 10px rgba(0,0,0,.25); }
+/* Small cards (the phone's rows) are just the colour: the name is beside them. */
+.card.good.mini .gname, .card.good.mini .gval { display: none; }
+.card.good.mini .band { top: 30%; height: 40%; }
+
+/* ---- the screen ---- */
+.how b { color: var(--brass); }
+.extra .goods-label { margin-top: 12px; }
+.scores.two { display: grid; grid-template-columns: 1fr 1fr; column-gap: 22px; }
+.scores.two .row b { font-size: 18px; }
+.goods-list { display: grid; grid-template-columns: 1fr 1fr; gap: 2px 16px; }
+.gi { display: flex; align-items: center; gap: 7px; font-size: 13px; color: #cfc9ba; padding: 2px 0; }
+.gi i { width: 10px; height: 10px; border-radius: 2px; background: var(--gc); flex: none; }
+.gi b { margin-left: auto; color: var(--dim); font-weight: 500; }
+
+.seat .obadge { position: absolute; top: -11px; right: -12px; background: var(--brass); color: #1a1a1a; font-size: 13px; font-weight: 700;
+  border-radius: 999px; padding: 3px 10px; white-space: nowrap; box-shadow: 0 2px 6px rgba(0,0,0,.45); }
+.seat .obadge.plus { background: var(--true); }
+.seat .obadge.minus { background: var(--lie); color: #fff; }
+.seat.offering { border-color: rgba(217,180,92,.6); }
+
+.phase-trading { width: 62% !important; gap: 12px !important; }
+.market { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; width: 100%; }
+.slot { background: rgba(21,22,26,.55); border: 1px solid rgba(255,255,255,.08); border-radius: 12px; padding: 10px 6px 14px; min-height: 148px;
+  display: flex; flex-direction: column; align-items: center; gap: 2px; transition: border-color .3s, box-shadow .3s; }
+.slot .num { font-family: var(--serif); font-size: 60px; font-weight: 600; line-height: 1; color: rgba(233,228,216,.3); }
+.slot .unit { font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: rgba(233,228,216,.55); }
+.slot .who { margin-top: auto; padding-top: 10px; }
+.slot .none { color: rgba(233,228,216,.35); font-size: 13px; }
+.slot.busy { border-color: rgba(217,180,92,.7); box-shadow: 0 0 26px rgba(217,180,92,.16); }
+.slot.busy .num { color: var(--brass); }
+.chip-name { display: inline-block; background: var(--bg2); border: 1px solid var(--line); border-radius: 999px; padding: 3px 14px 4px;
+  font-family: var(--serif); font-size: 22px; font-weight: 600; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ticker { display: flex; flex-direction: column; align-items: center; gap: 2px; margin-top: 4px; min-height: 150px; }
+.trade { font-family: var(--serif); font-size: 24px; color: #d9d3c4; padding: 2px 16px; border-radius: 8px; }
+.trade:first-child { font-size: 30px; color: var(--ink); }
+.trade:nth-child(3) { opacity: .7; } .trade:nth-child(4) { opacity: .45; }
+.trade .x { color: var(--brass); padding: 0 10px; }
+.trade b { color: rgba(233,228,216,.6); font-weight: 400; padding-left: 10px; }
+.trade.none { font-size: 18px; color: rgba(233,228,216,.6); }
+.trade.fresh { animation: traded 1.8s ease-out; }
+@keyframes traded { from { background: rgba(217,180,92,.4); } to { background: transparent; } }
+.go-stamp { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--serif); font-size: 140px; font-weight: 600; color: var(--brass);
+  text-shadow: 0 6px 30px rgba(0,0,0,.6); pointer-events: none; animation: gofade 1.3s ease-out both; }
+@keyframes gofade { 0% { opacity: 0; transform: scale(1.3); } 20% { opacity: 1; transform: scale(1); } 70% { opacity: 1; } 100% { opacity: 0; } }
+
+.count { font-family: var(--serif); font-size: 120px; font-weight: 600; line-height: 1; color: var(--brass); min-height: 120px; }
+.inplay { display: flex; justify-content: center; gap: 6px; margin: 8px 0 4px; }
+
+.stamp.corner { color: var(--brass); }
+.result-line { font-family: var(--serif); font-size: 34px; line-height: 1.1; margin-top: 6px; }
+.result-line b { color: var(--true); font-weight: 600; padding-left: 6px; }
+.winhand { --cw: 64px; display: flex; justify-content: center; padding: 14px 0 22px; }
+.winhand .card { transform: rotate(calc(var(--o) * 2deg)) translateY(calc(var(--o) * var(--o) * .7px)); }
+.winhand .card + .card { margin-left: -14px; }
+.standings { display: grid; grid-template-columns: auto auto; gap: 2px 30px; font-family: var(--serif); font-size: 24px; margin: 6px 0; }
+.standings span { text-align: left; } .standings b { text-align: right; font-weight: 600; color: #cfc9ba; }
+.standings .top { color: var(--brass); }
+
+/* ---- the phone ---- */
+.offerbox { background: var(--bg2); border: 1px solid var(--line); border-radius: 12px; padding: 12px 14px; }
+.offerbox.live { border-color: var(--brass); box-shadow: 0 0 0 1px var(--brass); }
+.offerbox .obtop { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.offerbox .oline { font-family: var(--serif); font-size: 22px; font-weight: 600; color: var(--brass); line-height: 1.15; margin-top: 2px; }
+.offerbox p { margin-top: 4px; }
+button.small { padding: 11px 16px; border-radius: 10px; font: inherit; font-size: 15px; font-weight: 600; flex: none; }
+.pmarket { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 6px; }
+.pm { background: var(--bg2); border: 1px solid var(--line); border-radius: 10px; padding: 5px 4px 6px; text-align: center; min-width: 0; }
+.pm b { display: block; font-family: var(--serif); font-size: 22px; line-height: 1.1; color: var(--dim); }
+.pm span { display: block; font-size: 12px; color: var(--dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pm.busy { border-color: var(--brass); } .pm.busy b { color: var(--brass); } .pm.busy span { color: var(--ink); }
+.pm.me { border-style: dashed; border-color: var(--dim); }
+.rows { display: flex; flex-direction: column; }
+.grow { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.grow:first-child { border-top: 1px solid var(--line); }
+.grow .card { --cw: 34px; }
+.ginfo { flex: 1; min-width: 0; }
+.gn { font-family: var(--serif); font-size: 20px; font-weight: 600; line-height: 1.1; }
+.gc { font-size: 12px; color: var(--dim); }
+.gc b { color: var(--ink); font-size: 15px; font-weight: 600; }
+.chips { display: flex; gap: 6px; flex: none; }
+.chip { width: 44px; height: 44px; border-radius: 10px; border: 1px solid var(--line); background: var(--bg2); color: var(--ink); padding: 0;
+  font-family: var(--serif); font-size: 22px; font-weight: 600; cursor: pointer; }
+.chip:active { transform: translateY(2px); }
+.chip:disabled { opacity: .3; }
+.chip.hot { background: var(--brass); color: #1a1a1a; border-color: var(--brass); }
+.chip small { font-family: var(--sans); font-size: 10px; font-weight: 600; vertical-align: super; margin-left: 1px; }
+.chip-gap { width: 44px; flex: none; }
+.toggle { height: 44px; padding: 0 12px; border-radius: 10px; border: 1px dashed var(--dim); background: transparent; color: var(--ink); font: inherit; font-size: 14px; font-weight: 600; }
+.toggle.on { border-style: solid; border-color: var(--brass); color: var(--brass); background: rgba(217,180,92,.12); }
+.toggle:disabled { opacity: .3; }
+.rider-note { color: var(--brass); }
+.minihand { --cw: 48px; display: flex; justify-content: center; padding: 8px 0; }
+.minihand .card { transform: rotate(calc(var(--o) * 2deg)); }
+.minihand .card + .card { margin-left: -17px; }
+.you { font-size: 17px; color: var(--ink); }
+.flash.traded { background: #2b2719; border-color: var(--brass); color: var(--ink); font-family: var(--serif); font-size: 20px; padding: 16px 14px; }
+.flash.traded b { color: var(--brass); font-weight: 600; }

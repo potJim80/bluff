@@ -1,35 +1,46 @@
-# Bluff
+# Games
 
-The card game (also called Cheat or I Doubt It) as a party game: one big screen, everyone plays
-from their phone. Built the same way as [Nomic](https://github.com/potJim80/nomic): plain
-HTML/JS, no server, no installs.
+Party card games for one big screen, played from phones. Open
+[potjim80.github.io/bluff](https://potjim80.github.io/bluff/) on the screen and pick a game; everyone
+scans the code and plays from their phone. Plain HTML/JS, no server, no installs.
 
-- **Screen:** open `index.html` (on GitHub Pages: `https://potjim80.github.io/bluff/`).
-  It shows a room code and a QR code.
-- **Phones:** scan the QR code, or open `play.html` and type the code.
+| Game | Players | What it is |
+|---|---|---|
+| [Bluff](bluff/) | 2–10 | Put cards down face down and claim the rank. Call it if you think they're lying. |
+| [Corner](corner/) | 3–8 | Everyone trades at once. First to hold all nine of one good corners the market. |
+| [Kemps](kemps/) | 4, 6 or 8 | Teams of two. Collect four of a kind and signal your partner without a word. |
+| [Durak](durak/) | 2–6 | Attack and defend. Nobody wins — the last one holding cards is the fool. |
 
-## Rules
+The full rules of each game are on its start screen (and on the phones) before the deal.
 
-The claim walks Aces, Twos, Threes … Kings, then round again. On your turn you put down one to
-four cards face down (up to eight with two decks); they count as the rank it's your turn to
-claim, true or not. Everyone else has ten seconds to call **Bluff**, or tap *Let it go*.
-If any card isn't that rank, the player who put them down takes the pile; if they were all true,
-the caller takes it. First to run out of cards — and survive the call on their last play — wins.
-One deck for up to six players, two decks for seven to ten.
+## The party
 
-## On the screen
+The room code belongs to the party, not to one game. Go back to *All games* on the screen and open
+another game: the code, the people and their seats carry over, and every phone follows the screen
+by itself. A game left half-way picks up where it was when you open it again. Anyone removed stays
+out. *New party* on the game list sends everyone away and gives the next game a new code.
 
-Enter deals (or the first player taps *Deal*) · N deals again after a win · click a name to
-remove that player (their cards go into the pile) · *Skip turn* appears when the player whose
-turn it is has gone away · Shift+Esc clears the table. Reloading the screen resumes the game.
+On the screen: Enter deals (or the first player taps *Deal*) · N deals again after a game · click a
+name to remove that player · Shift+Esc starts the current game over with the same people.
 
 ## How it fits together
 
-- `js/game.js` — the rules, a pure reducer. `npm test` (needs Node, nothing else).
-- `js/net.js` — public MQTT brokers over websockets, the Nomic transport.
-- `js/seal.js` — hands and moves are encrypted per phone (ECDH + AES-GCM), so nobody listening
-  on the public broker can read a hand or move for someone else.
-- `js/host.js` — the screen holds the whole game, runs the clocks.
-- `test/sim.html?view=screen|phone&step=lobby|theirs|window|reveal|mine|over[&live]` — a whole
-  table in one page with pretend players, for looking at each moment. Serve the folder over
-  http first (`python3 -m http.server`).
+- `common/` — what every game shares.
+  - `js/net.js` — public MQTT brokers over websockets; one topic per party, every table says which game it is.
+  - `js/seal.js` — hands and moves are encrypted per phone (ECDH + AES-GCM), so nobody listening on the
+    public broker can read a hand or move for someone else.
+  - `js/host.js` — the screen holds the whole game and runs the clocks; the list of what a game module
+    must export is at the top. `js/party.js` keeps the party across games.
+  - `js/screen-kit.js`, `js/phone-kit.js` — the screen frame (join panel, QR code, rules, log, seats) and
+    the phone side (join form, lobby, following the screen to another game).
+  - `js/table.js`, `js/cards.js`, `css/` — small shared rules helpers, card faces, the look.
+- One folder per game: `index.html` (screen), `play.html` (phones), `js/game.js` (the rules as a pure
+  function: state + move → new state), `js/rules.js` (the rules as shown to players), `js/screen.js`,
+  `js/play.js`, and `test/`.
+- `npm test` runs every test (needs Node, nothing else). Each game's `test/sim.html?view=screen|phone&step=…`
+  shows one moment of a game with pretend players — serve the folder first (`python3 -m http.server`).
+
+### Adding a game
+
+Copy a game folder, rewrite `js/game.js` and `js/rules.js`, then the screen and phone drawing. Add the
+folder name to `GAMES` in `common/js/party.js` and a card for it in the top-level `index.html`.

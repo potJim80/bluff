@@ -2,45 +2,166 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Bluff</title>
+<title>Games</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
+<meta name="theme-color" content="#15161a">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/cards.css">
-<link rel="stylesheet" href="css/screen.css">
+<style>
+:root {
+  --bg: #15161a; --bg2: #1d1f25; --ink: #e9e4d8; --dim: #8d8a80; --line: #2c2f38;
+  --felt: #1f4a3a; --felt2: #163a2d; --brass: #d9b45c;
+  --serif: 'EB Garamond', Georgia, serif; --sans: system-ui, -apple-system, 'Helvetica Neue', sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; background: var(--bg); color: var(--ink); font-family: var(--sans); }
+main { max-width: 1040px; margin: 0 auto; padding: 56px 16px 40px; }
+h1 { font-family: var(--serif); font-weight: 600; font-size: 56px; line-height: 1; margin: 0; color: var(--brass); }
+.lede { color: var(--dim); font-size: 16px; margin: 12px 0 36px; }
+.games { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+.game { display: block; text-decoration: none; color: inherit; background: var(--bg2); border: 1px solid var(--line);
+  border-radius: 12px; overflow: hidden; transition: border-color .2s, transform .2s; }
+.game:hover, .game:focus-visible { border-color: var(--brass); transform: translateY(-2px); outline: none; }
+.art { height: 120px; display: grid; place-items: center; background: radial-gradient(ellipse at 50% 40%, var(--felt), var(--felt2) 80%); }
+.art svg { width: 110px; height: 80px; }
+.body { padding: 14px 18px 16px; }
+.name { font-family: var(--serif); font-size: 26px; font-weight: 600; line-height: 1.1; }
+.what { color: #cfc9ba; font-family: var(--serif); font-size: 16px; line-height: 1.35; margin: 6px 0 10px; }
+.meta { color: var(--dim); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
+.phone { color: var(--dim); font-size: 14px; margin-top: 40px; }
+.party { margin-top: 32px; background: var(--bg2); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; }
+.party .label { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--dim); margin-bottom: 8px; }
+.party .row { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.party .code { font-family: var(--serif); font-size: 40px; font-weight: 600; letter-spacing: .08em; line-height: 1; color: var(--brass); }
+.party .who { display: flex; gap: 6px; flex-wrap: wrap; flex: 1; min-width: 160px; }
+.party .chip { border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px; font-size: 14px; }
+.party .none { color: var(--dim); font-size: 14px; }
+.party .note { color: var(--dim); font-size: 13px; margin: 10px 0 0; }
+.party button.ghost { background: transparent; color: var(--ink); border: 1px solid var(--dim); border-radius: 8px; padding: 6px 14px; font: inherit; font-size: 13px; cursor: pointer; }
+@media (max-width: 520px) { main { padding-top: 32px; } h1 { font-size: 44px; } }
+</style>
 </head>
 <body>
-<main id="screen">
-  <aside id="left">
-    <div class="panel join">
-      <div class="label">Join on your phone</div>
-      <div id="joinUrl" class="url">…</div>
-      <div class="label">Room code</div>
-      <div id="code" class="code">····</div>
-      <div id="qr" class="qr"></div>
-    </div>
-    <div class="panel how">
-      <div class="label">How it goes</div>
-      <p>Put down one to four cards face down and say they're the rank it's your turn to claim — Aces, then Twos, and on up to Kings.</p>
-      <p>Anyone can call <b>Bluff</b>. Caught lying? You take the pile. Told the truth? The caller takes it.</p>
-      <p>First to run out of cards wins.</p>
-    </div>
-    <ol id="log" class="log"></ol>
-  </aside>
+<main>
+  <h1>Games</h1>
+  <p class="lede">Open a game on the big screen. Everyone plays from their phone.</p>
 
-  <section id="table-wrap">
-    <div id="now" class="now"><span class="what"></span><span class="who"></span><button id="skip" class="skip" hidden>Skip turn</button></div>
-    <div id="table">
-      <div id="felt"></div>
-      <div id="seats"></div>
-      <div id="center"></div>
-    </div>
-    <div id="keys" class="keys"></div>
-  </section>
+  <!-- One block per game. A new game gets its own folder (like bluff/) with its own index.html
+       for the screen and play.html for the phones, then a block here pointing at it, and its
+       id in GAMES in common/js/party.js. -->
+  <div class="games">
+    <a class="game" href="bluff/">
+      <div class="art" aria-hidden="true">
+        <svg viewBox="0 0 110 80">
+          <g stroke="#3b2415" stroke-width="1.2">
+            <rect x="22" y="12" width="40" height="56" rx="5" fill="#7a2e2a" transform="rotate(-14 42 40)"/>
+            <rect x="35" y="10" width="40" height="56" rx="5" fill="#7a2e2a" transform="rotate(-2 55 38)"/>
+            <rect x="48" y="12" width="40" height="56" rx="5" fill="#f4efe3" transform="rotate(12 68 40)"/>
+          </g>
+          <text x="68" y="47" font-family="Georgia, serif" font-size="22" font-weight="600" fill="#15161a" text-anchor="middle" transform="rotate(12 68 40)">A</text>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="name">Bluff</div>
+        <div class="what">Put cards down face down and claim the rank. Call it if you think they're lying.</div>
+        <div class="meta">2–10 players · turns</div>
+      </div>
+    </a>
+
+    <a class="game" href="corner/">
+      <div class="art" aria-hidden="true">
+        <svg viewBox="0 0 110 80">
+          <g stroke="#3b2415" stroke-width="1.2">
+            <rect x="18" y="14" width="38" height="54" rx="5" fill="#f4efe3" transform="rotate(-12 37 41)"/>
+            <rect x="54" y="14" width="38" height="54" rx="5" fill="#f4efe3" transform="rotate(12 73 41)"/>
+          </g>
+          <rect x="20" y="26" width="34" height="8" fill="#b08a3e" transform="rotate(-12 37 41)"/>
+          <rect x="56" y="26" width="34" height="8" fill="#6b4a2f" transform="rotate(12 73 41)"/>
+          <path d="M47 20 h16 l-4 -4 M63 20 l-4 4 M63 64 h-16 l4 -4 M47 64 l4 4" stroke="#d9b45c" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="name">Corner</div>
+        <div class="what">Everyone trades at once, shouting numbers. First to hold all nine of one good corners the market.</div>
+        <div class="meta">3–8 players · all at once</div>
+      </div>
+    </a>
+
+    <a class="game" href="kemps/">
+      <div class="art" aria-hidden="true">
+        <svg viewBox="0 0 110 80">
+          <g stroke="#3b2415" stroke-width="1.2" fill="#f4efe3">
+            <rect x="16" y="14" width="34" height="50" rx="5" transform="rotate(-15 33 39)"/>
+            <rect x="30" y="11" width="34" height="50" rx="5" transform="rotate(-5 47 36)"/>
+            <rect x="45" y="11" width="34" height="50" rx="5" transform="rotate(5 62 36)"/>
+            <rect x="60" y="14" width="34" height="50" rx="5" transform="rotate(15 77 39)"/>
+          </g>
+          <g font-family="Georgia, serif" font-size="17" font-weight="600" text-anchor="middle">
+            <text x="23" y="34" fill="#15161a" transform="rotate(-15 33 39)">K</text>
+            <text x="38" y="30" fill="#b3261e" transform="rotate(-5 47 36)">K</text>
+            <text x="53" y="30" fill="#15161a" transform="rotate(5 62 36)">K</text>
+            <text x="68" y="34" fill="#b3261e" transform="rotate(15 77 39)">K</text>
+          </g>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="name">Kemps</div>
+        <div class="what">Collect four of a kind and signal your partner without a word. Get caught and it's theirs.</div>
+        <div class="meta">4, 6 or 8 players · teams of two</div>
+      </div>
+    </a>
+
+    <a class="game" href="durak/">
+      <div class="art" aria-hidden="true">
+        <svg viewBox="0 0 110 80">
+          <g stroke="#3b2415" stroke-width="1.2">
+            <rect x="28" y="12" width="38" height="54" rx="5" fill="#f4efe3" transform="rotate(-6 47 39)"/>
+            <rect x="44" y="18" width="38" height="54" rx="5" fill="#f4efe3" transform="rotate(14 63 45)"/>
+          </g>
+          <text x="38" y="32" font-family="Georgia, serif" font-size="15" font-weight="600" fill="#15161a" transform="rotate(-6 47 39)">9♠</text>
+          <text x="52" y="38" font-family="Georgia, serif" font-size="15" font-weight="600" fill="#b3261e" transform="rotate(14 63 45)">6♥</text>
+        </svg>
+      </div>
+      <div class="body">
+        <div class="name">Durak</div>
+        <div class="what">Attack, defend, pile on. Nobody wins — the last one holding cards is the fool.</div>
+        <div class="meta">2–6 players · attack and defend</div>
+      </div>
+    </a>
+  </div>
+
+  <section id="party" class="party" hidden></section>
+
+  <p class="phone">Joining from a phone? Scan the code on the big screen.</p>
 </main>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/5.10.1/mqtt.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
-<script type="module" src="js/screen.js"></script>
+<script type="module">
+// The party on this screen, if there is one: the same code and people carry into whichever game
+// opens next, and the phones follow by themselves.
+import { loadParty, endParty } from './common/js/party.js';
+import { announceEnd } from './common/js/net.js';
+const esc = (t) => String(t ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+function show() {
+  const p = loadParty(), el = document.getElementById('party');
+  el.hidden = !p;
+  if (!p) return;
+  el.innerHTML = `<div class="label">Your party</div>
+    <div class="row"><span class="code">${esc(p.code)}</span>
+      <span class="who">${p.roster.length ? p.roster.map(r => `<span class="chip">${esc(r.name)}</span>`).join('') : '<span class="none">Nobody has sat down yet</span>'}</span>
+      <button id="newParty" class="ghost">New party</button></div>
+    <p class="note">Open any game and everyone's phone follows, with the same code.</p>`;
+  document.getElementById('newParty').onclick = () => {
+    if (!confirm('Start a new party? Everyone is sent away, saved games are cleared, and the next game gets a new code.')) return;
+    const btn = document.getElementById('newParty');
+    btn.disabled = true; btn.textContent = 'Ending…';
+    const tell = globalThis.mqtt ? announceEnd(p.code) : Promise.resolve();   // tell the phones still waiting
+    endParty();
+    tell.finally(show);
+  };
+}
+show();
+addEventListener('pageshow', show);
+</script>
 </body>
 </html>
