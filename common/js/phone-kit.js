@@ -22,7 +22,8 @@ export function flash(t) { const d = document.createElement('div'); d.className 
 //   setTitle(text), others(): the list of players and counts, isDealer
 // lobbyNote(state, me): optional extra html in the lobby (teams, scores…)
 // count(player): optional, what to show beside each name in the players list
-export function startPhone({ game, rules, draw, lobbyNote = () => '', count = () => '' }) {
+// start: optional wording for the lobby's start button, for games without cards
+export function startPhone({ game, rules, draw, lobbyNote = () => '', count = () => '', start = { button: 'Deal the cards', verb: 'deal', verbs: 'deals' } }) {
   const { INFO } = game;
   document.title = INFO.name;
   const me = store.get('id') || Math.random().toString(36).slice(2, 10);
@@ -133,8 +134,8 @@ export function startPhone({ game, rules, draw, lobbyNote = () => '', count = ()
       // A game can say why it can't deal yet beyond the head count (Kemps needs an even number).
       const problem = need ? `${INFO.name} needs ${need} more.` : (game.dealProblem?.(state) || '');
       v.innerHTML = `<h1>You're in.</h1><p>${here} at the table.${problem ? ` ${esc(problem)}` : ''}</p>${others()}${lobbyNote(state, me)}
-        ${isDealer() ? `<button class="big" id="start" ${problem ? 'disabled' : ''}>Deal the cards</button><p class="hint">You're first at the table, so you deal. Wait until everyone's in.</p>`
-          : `<p class="hint">${esc(state.players.find(p => p.connected)?.name || 'The first player')} deals when everyone's in.</p>`}
+        ${isDealer() ? `<button class="big" id="start" ${problem ? 'disabled' : ''}>${start.button}</button><p class="hint">You're first at the table, so you ${start.verb}. Wait until everyone's in.</p>`
+          : `<p class="hint">${esc(state.players.find(p => p.connected)?.name || 'The first player')} ${start.verbs} when everyone's in.</p>`}
         ${rulesBlock(true)}`;
       $('#start') && ($('#start').onclick = () => send({ type: 'start' }));
       return;

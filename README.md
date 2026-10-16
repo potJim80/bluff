@@ -1,6 +1,6 @@
 # Games
 
-Party card games for one big screen, played from phones. Open
+Party games for one big screen, played from phones. Open
 [potjim80.github.io/bluff](https://potjim80.github.io/bluff/) on the screen and pick a game; everyone
 scans the code and plays from their phone. Plain HTML/JS, no server, no installs.
 
@@ -10,6 +10,7 @@ scans the code and plays from their phone. Plain HTML/JS, no server, no installs
 | [Corner](corner/) | 3–8 | Everyone trades at once. First to hold all nine of one good corners the market. |
 | [Kemps](kemps/) | 4, 6 or 8 | Teams of two. Collect four of a kind and signal your partner without a word. |
 | [Durak](durak/) | 2–6 | Attack and defend. Nobody wins — the last one holding cards is the fool. |
+| [Pinpoint](geo/) | 1–12 | A photo from somewhere on Earth. Drop a pin on the map on your phone — the closer, the more points. |
 
 The full rules of each game are on its start screen (and on the phones) before the deal.
 
@@ -44,3 +45,10 @@ name to remove that player · Shift+Esc starts the current game over with the sa
 
 Copy a game folder, rewrite `js/game.js` and `js/rules.js`, then the screen and phone drawing. Add the
 folder name to `GAMES` in `common/js/party.js` and a card for it in the top-level `index.html`.
+
+### Pinpoint's photos
+
+`geo/img/` holds the photos, picked by hand from Wikimedia Commons (free licences: CC0, public domain,
+CC BY, CC BY-SA). Each one's photographer and licence show on the screen with the answer, and the
+full list (with links) is in `geo/js/places.js`. The files were re-saved without their metadata, so
+nothing in a photo file says where it was taken. The map is OpenStreetMap's.

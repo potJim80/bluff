@@ -7,7 +7,7 @@ const GAME = (id) => 'party.game.' + id;
 const IDLE_MS = 12 * 3600e3;          // a party nobody has touched for half a day starts over
 const SAVE_MS = 6 * 3600e3;           // a game left mid-way resumes for six hours
 
-export const GAMES = ['bluff', 'corner', 'kemps', 'durak'];
+export const GAMES = ['bluff', 'corner', 'kemps', 'durak', 'geo'];
 
 const get = (k) => { try { return JSON.parse(globalThis.localStorage?.getItem(k) || 'null'); } catch { return null; } };
 const put = (k, v) => { try { globalThis.localStorage?.setItem(k, JSON.stringify(v)); } catch {} };
